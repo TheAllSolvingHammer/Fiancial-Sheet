@@ -12,8 +12,8 @@ using ProektTSPGlaven.Models.Database;
 namespace ProektTSPGlaven.Migrations
 {
     [DbContext(typeof(FinancesContext))]
-    [Migration("20250330095645_AddTransactionsAndAccounts")]
-    partial class AddTransactionsAndAccounts
+    [Migration("20250330174901_AdjustUser")]
+    partial class AdjustUser
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -110,15 +110,25 @@ namespace ProektTSPGlaven.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("firstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("hashedPassword")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("name")
+                    b.Property<string>("lastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("userID");
 

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProektTSPGlaven.Models
+namespace ProektTSPGlaven.Models.Database
 {
     public class Account
     {
@@ -15,7 +15,7 @@ namespace ProektTSPGlaven.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public Decimal balance { get; set; }
+        public decimal balance { get; set; }
 
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Computed)]

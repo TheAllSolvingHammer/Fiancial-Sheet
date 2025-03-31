@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using ProektTSPGlaven.Models;
+using ProektTSPGlaven.Models.Database;
 
 #nullable disable
 
@@ -22,7 +22,7 @@ namespace ProektTSPGlaven.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ProektTSPGlaven.Models.Account", b =>
+            modelBuilder.Entity("ProektTSPGlaven.Models.Database.Account", b =>
                 {
                     b.Property<int>("accountID")
                         .ValueGeneratedOnAdd()
@@ -49,10 +49,10 @@ namespace ProektTSPGlaven.Migrations
 
                     b.HasIndex("userID");
 
-                    b.ToTable("Account");
+                    b.ToTable("accounts");
                 });
 
-            modelBuilder.Entity("ProektTSPGlaven.Models.TransactionEntity", b =>
+            modelBuilder.Entity("ProektTSPGlaven.Models.Database.TransactionEntity", b =>
                 {
                     b.Property<int>("transactionID")
                         .ValueGeneratedOnAdd()
@@ -87,10 +87,10 @@ namespace ProektTSPGlaven.Migrations
 
                     b.HasIndex("accountID");
 
-                    b.ToTable("TransactionEntity");
+                    b.ToTable("transactions");
                 });
 
-            modelBuilder.Entity("ProektTSPGlaven.Models.User", b =>
+            modelBuilder.Entity("ProektTSPGlaven.Models.Database.User", b =>
                 {
                     b.Property<int>("userID")
                         .ValueGeneratedOnAdd()
@@ -99,7 +99,6 @@ namespace ProektTSPGlaven.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("userID"));
 
                     b.Property<DateTime>("createdAt")
-                        .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("datetime2");
 
                     b.Property<string>("email")
@@ -107,24 +106,34 @@ namespace ProektTSPGlaven.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
+                    b.Property<string>("firstName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<string>("hashedPassword")
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<string>("name")
+                    b.Property<string>("lastName")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("username")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
 
                     b.HasKey("userID");
 
                     b.ToTable("users");
                 });
 
-            modelBuilder.Entity("ProektTSPGlaven.Models.Account", b =>
+            modelBuilder.Entity("ProektTSPGlaven.Models.Database.Account", b =>
                 {
-                    b.HasOne("ProektTSPGlaven.Models.User", "User")
+                    b.HasOne("ProektTSPGlaven.Models.Database.User", "User")
                         .WithMany("Accounts")
                         .HasForeignKey("userID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -133,9 +142,9 @@ namespace ProektTSPGlaven.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("ProektTSPGlaven.Models.TransactionEntity", b =>
+            modelBuilder.Entity("ProektTSPGlaven.Models.Database.TransactionEntity", b =>
                 {
-                    b.HasOne("ProektTSPGlaven.Models.Account", "account")
+                    b.HasOne("ProektTSPGlaven.Models.Database.Account", "account")
                         .WithMany("Transactions")
                         .HasForeignKey("accountID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -144,12 +153,12 @@ namespace ProektTSPGlaven.Migrations
                     b.Navigation("account");
                 });
 
-            modelBuilder.Entity("ProektTSPGlaven.Models.Account", b =>
+            modelBuilder.Entity("ProektTSPGlaven.Models.Database.Account", b =>
                 {
                     b.Navigation("Transactions");
                 });
 
-            modelBuilder.Entity("ProektTSPGlaven.Models.User", b =>
+            modelBuilder.Entity("ProektTSPGlaven.Models.Database.User", b =>
                 {
                     b.Navigation("Accounts");
                 });

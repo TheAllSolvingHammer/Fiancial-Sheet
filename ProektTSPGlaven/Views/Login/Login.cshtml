@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Login Page";
+}
+<h1>Log in</h1>
+<form id="form" name="form" method="post" asp-controller="Login" asp-action="Login">
+    <table>
+        <tr>
+            <td>Username</td>
+            <td>
+                <input type="text" name="username" required />
+
+            </td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td>
+                <input type="password" name="password" required />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" name="submit" id="submit" value="Submit" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p>
+                    Don't have an account?
+                    <a asp-controller="Login" asp-action="Register">Sign up here</a>
+                </p>
+            </td>
+        </tr>
+    </table>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</form>
