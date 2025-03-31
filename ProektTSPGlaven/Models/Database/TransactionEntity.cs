@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProektTSPGlaven.Models
+namespace ProektTSPGlaven.Models.Database
 {
     public enum TransactionType
     {
@@ -21,7 +21,7 @@ namespace ProektTSPGlaven.Models
 
         [Required]
         [Column(TypeName = "decimal(18,2)")]
-        public Decimal amount { get; set; }
+        public decimal amount { get; set; }
 
         [Required]
 

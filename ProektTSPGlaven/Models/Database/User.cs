@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProektTSPGlaven.Models
+namespace ProektTSPGlaven.Models.Database
 {
     public class User
     {
@@ -11,8 +11,16 @@ namespace ProektTSPGlaven.Models
         public int userID { get; set; }
 
         [Required]
-        [StringLength(50)]
-        public string name { get; set; }
+        [StringLength(200)]
+        public string username { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string firstName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        public string lastName { get; set; }
 
         [Required]
         [EmailAddress]
@@ -23,7 +31,7 @@ namespace ProektTSPGlaven.Models
         [StringLength (255)]
         public string hashedPassword { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        [Required]
         public DateTime createdAt { get; set; }
 
         public ICollection<Account> Accounts { get; set; } = new List<Account>();
