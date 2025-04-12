@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewData["Title"] = "Create account";
+}
+<h1>Add personal account</h1>
+<form id="form" name="form" method="post" asp-controller="Account" asp-action="CreateAccount">
+        <div class="row mb-1">
+            <label class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-2">
+                <input type="text" class="form-control" name="name" required />
+
+            </div>
+        </div>
+        <div class="row mb-1">
+            <label class="col-sm-2 col-form-label">Starting Balance</label>
+            <div class="col-sm-2">
+                <input type="number" class="form-control" name="balance" required />
+
+            </div>
+        </div>
+        <div class="row mb-0">
+            <div class="col-sm-2">
+                <input type="submit" name="submit" id="submit" value="Submit" />
+
+            </div>
+        </div>
+       
+       
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</form>

@@ -2,14 +2,21 @@
 
 namespace ProektTSPGlaven.Models.Session
 {
-    public static class SessionExtensions
+    public class Session2
     {
-        public static void SetObject(this ISession session, string key, object value)
+        private ISession session;
+        private static Session2 instance;
+        public Session2(ISession session) {
+            this.session = session;
+        }
+
+ 
+        public void SetObject(string key, object value)
         {
             session.SetString(key, JsonConvert.SerializeObject(value));
         }
 
-        public static T? GetObject<T>(this ISession session, string key)
+        public T GetObject<T>(string key)
         {
             var value = session.GetString(key);
             return value == null ? default : JsonConvert.DeserializeObject<T>(value);

@@ -8,9 +8,9 @@ namespace ProektTSPGlaven.Controllers
     public class RegisterController : Controller
     {
         private readonly FinancesContext financesContext;
-        private readonly ILogger<HomeController> logger;
+        private readonly ILogger<RegisterController> logger;
 
-        public RegisterController(FinancesContext financesContext, ILogger<HomeController> logger)
+        public RegisterController(FinancesContext financesContext, ILogger<RegisterController> logger)
         {
             this.financesContext = financesContext;
             this.logger = logger;
@@ -25,19 +25,25 @@ namespace ProektTSPGlaven.Controllers
         [HttpPost]
         public IActionResult Register(RegisterModel model)
         {
-            if (!ModelState.IsValid)
-                return View("Register", "");
+            if (!ModelState.IsValid) { 
+            return View("~/Views/Login/Register.cshtml", model);
+            }
             if (!model.password.Equals(model.passwordRepeat))
             {
                 ModelState.AddModelError("", "Passwords doesn't match");
-
-                return View("Register", model);
+                return View("~/Views/Login/Register.cshtml",model);
             }
+            if (financesContext.users.Any(u => u.username.Equals(model.username.ToLower())))
+            {
+                ModelState.AddModelError("", "Username exists");
+                return View("~/Views/Login/Register.cshtml", model);
+            }
+
             User user = new UserBuilder().withFirstName(model.firstName)
                 .withLastName(model.lastName)
                 .withUsername(model.username)
                 .withEmail(model.email)
-                .withPassword(BCrypt.Net.BCrypt.HashPassword(model.password))
+                .withPassword(model.password)
                 .build();
             financesContext.users.Add(user);
             financesContext.SaveChanges();

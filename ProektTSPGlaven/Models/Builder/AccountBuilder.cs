@@ -4,12 +4,12 @@ namespace ProektTSPGlaven.Models.Builder
 {
     public class AccountBuilder
     {
-
-        private readonly Account account;
+        
+        private readonly Database.Account account;
 
         public AccountBuilder()
         {
-            account = new Account();
+            account = new Database.Account();
         }
 
         public AccountBuilder withName(string name)
@@ -37,7 +37,13 @@ namespace ProektTSPGlaven.Models.Builder
 
         }
 
-        public Account build()
+        public AccountBuilder withUserId(int id)
+        {
+            account.userID = id;
+            return this;
+        }
+
+        public Database.Account build()
         {
             return account;
         }

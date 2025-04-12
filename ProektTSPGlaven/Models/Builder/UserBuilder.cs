@@ -14,7 +14,7 @@ namespace ProektTSPGlaven.Models.Builder
 
         public UserBuilder withUsername(string username)
         {
-            user.username = username;
+            user.username = username.ToLower();
             return this;
         }
 

@@ -12,6 +12,9 @@ namespace ProektTSPGlaven.Models.Session
             this.user = user;
         }
 
-   
+        public User getUser()
+        {
+            return user;
+        }
     }
 }
