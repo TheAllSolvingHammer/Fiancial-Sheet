@@ -6,15 +6,11 @@ namespace ProektTSPGlaven.Models.Session
 {
     public class LoggedUser
     {
-        private User user;
+        public User user { get; set; }
         public LoggedUser(User user)
         {
             this.user = user;
         }
-
-        public User getUser()
-        {
-            return user;
-        }
+  
     }
 }

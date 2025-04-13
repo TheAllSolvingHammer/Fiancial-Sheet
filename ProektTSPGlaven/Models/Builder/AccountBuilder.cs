@@ -32,19 +32,13 @@ namespace ProektTSPGlaven.Models.Builder
             }
 
             account.User = user;
-            account.userID = user.userID;
             return this;
 
-        }
-
-        public AccountBuilder withUserId(int id)
-        {
-            account.userID = id;
-            return this;
         }
 
         public Database.Account build()
         {
+            account.createdAt = DateTime.Now;
             return account;
         }
 

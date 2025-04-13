@@ -4,6 +4,7 @@ using ProektTSPGlaven.Models.Builder;
 
 using ProektTSPGlaven.Models.Account;
 using ProektTSPGlaven.Models.Session;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProektTSPGlaven.Controllers
 {
@@ -11,7 +12,7 @@ namespace ProektTSPGlaven.Controllers
     {
         private readonly FinancesContext financesContext;
         private readonly ILogger<AccountController> logger;
-       
+        
 
         public AccountController(FinancesContext financesContext, ILogger<AccountController> logger)
         {
@@ -24,6 +25,7 @@ namespace ProektTSPGlaven.Controllers
         {
             return View();
         }
+
 
         [HttpPost]
         public IActionResult CreateAccount(AccountModel model)
@@ -43,13 +45,17 @@ namespace ProektTSPGlaven.Controllers
                     return RedirectToAction("Login", "Account");
                 }
 
-                User u = loggedUser.getUser();
-                Console.WriteLine(u);
+                var trackedUser = financesContext.users.Find(loggedUser.user.userID);
+                if (trackedUser == null)
+                {
+                    ModelState.AddModelError("", "User not found");
+                    return View("Account", model);
+                }
+
                 Account a = new AccountBuilder()
                     .withName(model.name)
                     .withBalance(model.balance)
-                    .withUser(u)
-                    .withUserId(u.userID)
+                    .withUser(trackedUser)
                     .build();
 
                 financesContext.accounts.Add(a);
@@ -57,7 +63,7 @@ namespace ProektTSPGlaven.Controllers
 
                 TempData["SuccessMessage"] = $"Account '{model.name}' created successfully!";
 
-                return RedirectToAction("Dashboard", "Dashboard");
+                return RedirectToAction("Accounts", "Dashboard");
             }
             catch (Exception ex)
             {

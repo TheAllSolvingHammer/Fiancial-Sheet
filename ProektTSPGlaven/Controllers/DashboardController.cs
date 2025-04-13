@@ -1,16 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using ProektTSPGlaven.Models.Database;
+using ProektTSPGlaven.Models.Session;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProektTSPGlaven.Controllers
 {
     public class DashboardController : Controller
     {
+        private readonly FinancesContext financesContext;
         private readonly ILogger<DashboardController> _logger;
 
-        public DashboardController(ILogger<DashboardController> logger)
+        public DashboardController(ILogger<DashboardController> logger, FinancesContext financesContext)
         {
             _logger = logger;
+            this.financesContext = financesContext;
         }
 
         [HttpGet]
@@ -33,7 +38,15 @@ namespace ProektTSPGlaven.Controllers
         [HttpGet]
         public IActionResult Accounts()
         {
-            return View();
+            LoggedUser loggedUser = HttpContext.Session.GetObject<LoggedUser>("LoggedUser");
+            if (loggedUser == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+            var accounts = financesContext.accounts
+                    .Where(a => a.userID == loggedUser.user.userID)
+                    .ToList();
+            return View(accounts);
         }
 
         [HttpGet]

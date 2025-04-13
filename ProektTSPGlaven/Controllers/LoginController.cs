@@ -47,11 +47,8 @@ namespace ProektTSPGlaven.Controllers
                
                 return View("Login",model);
             }
-            
-
+           
             HttpContext.Session.SetObject("LoggedUser", new LoggedUser(user));
-            var user2 = HttpContext.Session.GetObject<User>("LoggedUser");
-            Console.WriteLine(user2);
             return RedirectToAction("Dashboard","Dashboard");
         }
 

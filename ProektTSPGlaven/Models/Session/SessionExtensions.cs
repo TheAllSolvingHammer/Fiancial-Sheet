@@ -6,7 +6,9 @@ namespace ProektTSPGlaven.Models.Session
     {
         public static void SetObject(this ISession session, string key, object value)
         {
-            session.SetString(key, JsonConvert.SerializeObject(value));
+            string json = JsonConvert.SerializeObject(value);
+
+            session.SetString(key, json);
         }
 
         public static T? GetObject<T>(this ISession session, string key)
