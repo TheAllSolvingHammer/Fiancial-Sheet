@@ -4,56 +4,54 @@
 @{
     ViewData["Title"] = "Register";
 }
-<h1>Log in</h1>
+<h1>Register</h1>
 <form id="form" name="form" method="post" asp-controller="Register" asp-action="Register">
-    <table>
-        <tr>
-            <td>Username</td>
-            <td>
-                <input type="text" name="username" required />
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">Username</label>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" name="username" required />
 
-            </td>
-        </tr>
-        <tr>
-            <td>First Name</td>
-            <td>
-                <input type="text" name="firstName" required />
+            </div>
+        </div>
+        <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">First Name</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="firstName" required />
 
-            </td>
-        </tr>
-        <tr>
-            <td>Last Name</td>
-            <td>
-                <input type="text" name="lastName" required />
+            </div>
+        </div>
+        <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Last Name</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" name="lastName" required />
 
-            </td>
-        </tr>
+            </div>
+        </div>
 
-        <tr>
-            <td>E-mail</td>
-            <td>
-                <input type="email" name="email" required />
+        <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">E-mail</label>
+        <div class="col-sm-6">
+            <input type="email" class="form-control" name="email" required />
 
-            </td>
-        </tr>
-        <tr>
-            <td>Password</td>
-            <td>
-                <input type="password" name="password" required />
-            </td>
-        </tr>
+            </div>
+        </div>
+        <div class="row mb-3">
+        <label class="col-sm-3 col-form-label" >Password</label>
+        <div class="col-sm-6">
+            <input type="password" class="form-control" name="password" required />
+            </div>
+        </div>
 
-        <tr>
-            <td>Repeat password</td>
-            <td>
-                <input type="password" name="passwordRepeat" required />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <input type="submit" name="submit" id="submit" value="Submit" />
-            </td>
-        </tr>
-    </table>
+        <div class="row mb-3">
+        <label class="col-sm-3 col-form-label">Repeat password</label>
+        <div class="col-sm-6">
+            <input type="password" class="form-control" name="passwordRepeat" required />
+            </div>
+        </div>
+        <div class="row mb-3">
+        <div class="col-sm-3">
+            <input type="submit" name="submit" class="form-control" id="submit" value="Submit" />
+            </div>
+        </div>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 </form>

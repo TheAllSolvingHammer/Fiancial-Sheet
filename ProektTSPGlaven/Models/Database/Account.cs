@@ -18,7 +18,6 @@ namespace ProektTSPGlaven.Models.Database
         public decimal balance { get; set; }
 
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime createdAt { get; set; }
 
         public int userID { get; set; }

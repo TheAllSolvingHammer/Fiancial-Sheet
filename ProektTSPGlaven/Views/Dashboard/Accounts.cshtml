@@ -1,0 +1,55 @@
+﻿@{
+	ViewData["Title"] = "Account List";
+}
+@section DashboardHeader {
+<li class="nav-item">
+	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Accounts">Account List</a>
+</li>
+<li class="nav-item">
+	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="AddAccount">Add Account</a>
+</li>
+<li class="nav-item">
+	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
+</li>
+<li class="nav-item">
+	<a class="nav-link text bg-dark" asp-controller="Dashboard" asp-action="Logout">Logout</a>
+</li>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+	<div class="alert alert-success">
+		@TempData["SuccessMessage"]
+	</div>
+}
+@model List<ProektTSPGlaven.Models.Database.Account>
+<h2> Your accounts</h2>
+<a class="btn btn-primary btn-sm" asp-controller="Dashboard" asp-action="AddAccount">New Account</a>
+<table class="table">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Balance</th>
+			<th>Created at</th>
+			<th>Transaction Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		@using ProektTSPGlaven.Models.Database;
+		@foreach (Account account in Model)
+		{
+			<tr>
+				<td>@account.accountID</td>
+				<td>@account.name</td>
+				<td>@account.balance</td>
+				<td>@account.createdAt</td>
+				<td>
+					<a asp-controller="Transaction" asp-action="New" asp-route-accountId="@account.accountID" class="btn btn-sm btn-success">New</a>
+					<a asp-controller="Transaction" asp-action="History" asp-route-accountId="@account.accountID" class="btn btn-sm btn-info">History</a>
+					<a asp-controller="Transaction" asp-action="Delete" asp-route-accountId="@account.accountID" class="btn btn-sm btn-danger">Delete</a>
+				</td>
+			</tr>
+		}
+		
+	</tbody>
+</table>

@@ -11,7 +11,7 @@ namespace ProektTSPGlaven.Models.Builder
             transactionEntity = new TransactionEntity();
         }
 
-        public TransactionBuilder withAccount(Account account)
+        public TransactionBuilder withAccount(Database.Account account)
         {
             if (account == null)
             {

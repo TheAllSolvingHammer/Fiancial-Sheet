@@ -16,10 +16,12 @@ namespace ProektTSPGlaven.Controllers
     {
         private readonly FinancesContext financesContext;
         private readonly ILogger<HomeController> logger;
+ 
         public LoginController(FinancesContext financesContext, ILogger<HomeController> logger)
         {
             this.financesContext = financesContext;
             this.logger = logger;   
+            
         }
 
         [HttpGet]
@@ -33,27 +35,24 @@ namespace ProektTSPGlaven.Controllers
         {
             if (!ModelState.IsValid)
                 return View("Login",model);
-
+            //
+            //
+            //
+            //
             User user = financesContext.users.FirstOrDefault(u => u.username == model.username);
+
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.password, user.hashedPassword))
             {
                 ModelState.AddModelError("", "Invalid credentials");
                
                 return View("Login",model);
             }
-            
-
+           
             HttpContext.Session.SetObject("LoggedUser", new LoggedUser(user));
-            return RedirectToAction("Index", "Home");
-        }
-        
-        public IActionResult Logout()
-        {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            HttpContext.Session.Clear();
-            return RedirectToAction("Logout");
+            return RedirectToAction("Dashboard","Dashboard");
         }
 
+        [HttpGet]
         public IActionResult Register()
         {
             return View();

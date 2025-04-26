@@ -4,12 +4,12 @@ namespace ProektTSPGlaven.Models.Builder
 {
     public class AccountBuilder
     {
-
-        private readonly Account account;
+        
+        private readonly Database.Account account;
 
         public AccountBuilder()
         {
-            account = new Account();
+            account = new Database.Account();
         }
 
         public AccountBuilder withName(string name)
@@ -32,13 +32,13 @@ namespace ProektTSPGlaven.Models.Builder
             }
 
             account.User = user;
-            account.userID = user.userID;
             return this;
 
         }
 
-        public Account build()
+        public Database.Account build()
         {
+            account.createdAt = DateTime.Now;
             return account;
         }
 
