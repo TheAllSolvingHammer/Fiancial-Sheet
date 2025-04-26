@@ -35,11 +35,7 @@ namespace ProektTSPGlaven.Controllers
         {
             if (!ModelState.IsValid)
                 return View("Login",model);
-            //
-            //
-            //
-            //
-            User user = financesContext.users.FirstOrDefault(u => u.username == model.username);
+            var user = financesContext.users.FirstOrDefault(u => u.username == model.username);
 
             if (user == null || !BCrypt.Net.BCrypt.Verify(model.password, user.hashedPassword))
             {

@@ -44,9 +44,11 @@
 				<td>@account.balance</td>
 				<td>@account.createdAt</td>
 				<td>
-					<a asp-controller="Transaction" asp-action="New" asp-route-accountId="@account.accountID" class="btn btn-sm btn-success">New</a>
+					<a asp-controller="Transaction" asp-action="Create" asp-route-accountId="@account.accountID" class="btn btn-sm btn-success">New</a>
 					<a asp-controller="Transaction" asp-action="History" asp-route-accountId="@account.accountID" class="btn btn-sm btn-info">History</a>
-					<a asp-controller="Transaction" asp-action="Delete" asp-route-accountId="@account.accountID" class="btn btn-sm btn-danger">Delete</a>
+					<form asp-controller="Account" asp-action="Delete" asp-route-accountId="@account.accountID" method="post" style="display:inline;">
+						<button type="submit" class="btn btn-sm btn-danger">Delete</button>
+					</form>
 				</td>
 			</tr>
 		}

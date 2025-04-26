@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Models\Transaction\**" />
+    <Content Remove="Models\Transaction\**" />
+    <EmbeddedResource Remove="Models\Transaction\**" />
+    <None Remove="Models\Transaction\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.3" />
@@ -20,7 +27,6 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-    <Folder Include="Models\Transaction\" />
   </ItemGroup>
 
 </Project>
