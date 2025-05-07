@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 using ProektTSPGlaven.Models.Builder;
 using ProektTSPGlaven.Models.Database;
@@ -113,6 +114,49 @@ namespace ProektTSPGlaven.Controllers
    
         }
 
- 
+        [HttpGet]
+        public IActionResult BalanceHistory(int accountId)
+        {
+            var account = financesContext.accounts
+                .Include(a => a.Transactions)
+                .FirstOrDefault(a => a.accountID == accountId);
+
+            if (account == null)
+                return NotFound();
+
+            var sortedTransactions = account.Transactions
+                .OrderByDescending(t => t.createdAt)
+                .ToList();
+
+            var dailyBalances = new Dictionary<string, decimal>();
+            decimal currentBalance = account.balance;
+
+            for (int i = 0; i < 10; i++)
+            {
+                var day = DateTime.Today.AddDays(-i);
+                var dayKey = day.ToString("yyyy-MM-dd");
+                dailyBalances[dayKey] = currentBalance;
+
+                foreach (var tx in sortedTransactions.Where(t => t.createdAt.Date == day))
+                {
+                    if (tx.type == TransactionType.Income)
+                        currentBalance -= tx.amount;
+                    else
+                        currentBalance += tx.amount;
+                }
+            }
+
+            dailyBalances = dailyBalances
+                .OrderBy(kv => DateTime.Parse(kv.Key))
+                .ToDictionary(kv => kv.Key, kv => kv.Value);
+
+            ViewBag.Dates = dailyBalances.Keys.ToList();
+            ViewBag.Balances = dailyBalances.Values.ToList();
+            ViewBag.AccountName = account.name;
+
+            return View("Stats");
+        }
+
+
     }
 }

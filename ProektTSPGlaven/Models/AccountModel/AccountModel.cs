@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProektTSPGlaven.Models.Account
+namespace ProektTSPGlaven.Models.AccountModel
 {
     public class AccountModel
     {
