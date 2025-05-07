@@ -18,7 +18,6 @@ namespace ProektTSPGlaven.Models.Builder
                 throw new ArgumentNullException(nameof(account));
             }
             transactionEntity.account = account;
-            transactionEntity.accountID = account.accountID;
             return this;
         }
 
@@ -48,6 +47,7 @@ namespace ProektTSPGlaven.Models.Builder
 
         public TransactionEntity build()
         {
+            transactionEntity.createdAt = DateTime.Now;
             return transactionEntity;
         }
 

@@ -33,7 +33,6 @@ namespace ProektTSPGlaven.Models.Database
 
 
         [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime createdAt { get; set; }
 
         [Required]
