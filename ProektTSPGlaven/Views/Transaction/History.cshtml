@@ -23,7 +23,8 @@
 }
 @model List<ProektTSPGlaven.Models.Database.TransactionEntity>
 <h2> Your accounts</h2>
-<a class="btn btn-primary btn-sm" asp-controller="Transaction" asp-action="Create">New transaction</a>
+
+<a class="btn btn-primary btn-sm" method="post" asp-controller="Transaction" asp-action="Create" asp-route-accountId="@ViewBag.AccountId">New transaction</a>
 <table class="table">
 	<thead>
 		<tr>

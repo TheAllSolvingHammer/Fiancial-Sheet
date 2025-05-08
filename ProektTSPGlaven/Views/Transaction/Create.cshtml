@@ -16,9 +16,9 @@
     <a class="nav-link text bg-dark" asp-controller="Dashboard" asp-action="Logout">Logout</a>
 </li>
 }
-<h1>Add personal account</h1>
+<h1>Add Transaction</h1>
 <form id="form" name="form" method="post" asp-controller="Transaction" asp-action="Create">
-    <input type="hidden" id="accountId" name="accountId" value=@ViewBag.AccountId />
+    @* <input type="hidden" id="accountId" name="accountId" value=@ViewBag.AccountId /> *@
     <div class="row mb-1">
         <label class="col-sm-2 col-form-label">Amount</label>
         <div class="col-sm-2">

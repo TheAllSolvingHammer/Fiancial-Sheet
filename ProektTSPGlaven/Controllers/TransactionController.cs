@@ -57,7 +57,7 @@ namespace ProektTSPGlaven.Controllers
                     ModelState.AddModelError("", "No account was found with such id");
                     return RedirectToAction("Accounts", "Dashboard");
                 }
-                
+                Console.WriteLine("My account is %d\n", custom.accountId);
                 if (model.type.Equals(TransactionType.Expense) && model.amount>account.balance)
                 {
                     ModelState.AddModelError("", "Can not create expense that is bigger than accounts balance");
@@ -100,6 +100,7 @@ namespace ProektTSPGlaven.Controllers
         [HttpGet]
         public IActionResult History(int accountId)
         {
+            ViewBag.AccountId = accountId;
             LoggedUser loggedUser = HttpContext.Session.GetObject<LoggedUser>("LoggedUser");
             if (loggedUser == null)
             {
