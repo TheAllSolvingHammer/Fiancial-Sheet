@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProektTSPGlaven.Models.Database;
 using ProektTSPGlaven.Models.Builder;
-
-using ProektTSPGlaven.Models.Account;
 using ProektTSPGlaven.Models.Session;
 using Microsoft.EntityFrameworkCore;
+using ProektTSPGlaven.Models.AccountModel;
 
 namespace ProektTSPGlaven.Controllers
 {

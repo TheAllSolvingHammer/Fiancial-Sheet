@@ -55,9 +55,29 @@ namespace ProektTSPGlaven.Controllers
             return View();
         }
 
+
         [HttpGet]
         public IActionResult Stats()
         {
+            LoggedUser loggedUser = HttpContext.Session.GetObject<LoggedUser>("LoggedUser");
+            if (loggedUser == null)
+            {
+                return RedirectToAction("Login", "Account");
+            }
+
+            var accounts = financesContext.accounts
+                .Where(a => a.userID == loggedUser.user.userID)
+                .Select(a => new
+                {
+                    a.accountID,
+                    a.name,
+                    a.balance
+                }).ToList();
+
+            ViewBag.AccountLabels = accounts.Select(a => a.name).ToList();
+            ViewBag.AccountBalances = accounts.Select(a => a.balance).ToList();
+            ViewBag.AccountIds = accounts.Select(a => a.accountID).ToList();
+
             return View();
         }
     }

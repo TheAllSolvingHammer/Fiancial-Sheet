@@ -32,6 +32,7 @@
 			<th>Balance</th>
 			<th>Created at</th>
 			<th>Transaction Actions</th>
+			<th>Statistics</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -49,6 +50,9 @@
 					<form asp-controller="Account" asp-action="Delete" asp-route-accountId="@account.accountID" method="post" style="display:inline;">
 						<button type="submit" class="btn btn-sm btn-danger">Delete</button>
 					</form>
+				</td>
+				<td>
+					<a asp-controller="Transaction" asp-action="BalanceHistory" asp-route-accountId="@account.accountID" class="btn btn-sm btn-primary">Flow</a>
 				</td>
 			</tr>
 		}
