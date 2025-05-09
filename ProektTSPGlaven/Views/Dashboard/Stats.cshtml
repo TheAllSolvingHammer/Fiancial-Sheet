@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Personal stats";
+    ViewData["Title"] = "Personal Stats";
 }
 @section DashboardHeader {
     <li class="nav-item">
@@ -9,48 +9,59 @@
         <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="AddAccount">Add Account</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
+        <a class="nav-link text-dark fw-bold" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text bg-red" asp-controller="Dashboard" asp-action="Logout">Logout</a>
+        <a class="nav-link text-danger fw-bold" asp-controller="Dashboard" asp-action="Logout">Logout</a>
     </li>
 }
 
-<head>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<canvas id="accountChart" width="600" height="400"></canvas>
-<script>
-    const labels = @Html.Raw(Json.Serialize(ViewBag.AccountLabels));
-    const balances = @Html.Raw(Json.Serialize(ViewBag.AccountBalances));
-    const accountIds = @Html.Raw(Json.Serialize(ViewBag.AccountIds));
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h2 class="display-6">📊 Account Balances Overview</h2>
+        <p class="text-muted">Click on any bar to see the transaction history for the selected account.</p>
+    </div>
 
-    const ctx = document.getElementById('accountChart').getContext('2d');
-    const chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: labels,
-            datasets: [{
-                label: 'Account Balances',
-                data: balances,
-                backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            onClick: (e, elements) => {
-                if (elements.length > 0) {
-                    const index = elements[0].index;
-                    const accountId = accountIds[index];
-                    window.location.href = '/Transaction/History?accountId=' + accountId;
-                }
+    <div class="d-flex justify-content-center">
+        <canvas id="accountChart" width="600" height="400" class="shadow rounded border"></canvas>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const labels = @Html.Raw(Json.Serialize(ViewBag.AccountLabels));
+        const balances = @Html.Raw(Json.Serialize(ViewBag.AccountBalances));
+        const accountIds = @Html.Raw(Json.Serialize(ViewBag.AccountIds));
+
+        const ctx = document.getElementById('accountChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Account Balances',
+                    data: balances,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
             },
-            scales: {
-                y: {
-                    beginAtZero: true
+            options: {
+                onClick: (e, elements) => {
+                    if (elements.length > 0) {
+                        const index = elements[0].index;
+                        const accountId = accountIds[index];
+                        window.location.href = '/Transaction/History?accountId=' + accountId;
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
                 }
             }
-        }
-    });
-</script>
+        });
+    </script>
+}
+

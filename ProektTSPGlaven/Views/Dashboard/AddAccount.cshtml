@@ -1,7 +1,7 @@
-﻿
-@{
-    ViewData["Title"] = "Create account";
+﻿@{
+    ViewData["Title"] = "Create Account";
 }
+
 @section DashboardHeader {
     <li class="nav-item">
         <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Accounts">Account List</a>
@@ -13,32 +13,35 @@
         <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text bg-red" asp-controller="Dashboard" asp-action="Logout">Logout</a>
+        <a class="nav-link text-danger fw-bold" asp-controller="Dashboard" asp-action="Logout">Logout</a>
     </li>
 }
-<h1>Add personal account</h1>
-<form id="form" name="form" method="post" asp-controller="Account" asp-action="CreateAccount">
-        <div class="row mb-1">
+
+<div class="container mt-4">
+    <h2 class="mb-4">Add Personal Account</h2>
+
+    <form id="form" name="form" method="post" asp-controller="Account" asp-action="CreateAccount" class="shadow-sm p-4 bg-light rounded">
+        <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Name</label>
-            <div class="col-sm-2">
-                <input type="text" class="form-control" name="name" required />
-
+            <div class="col-sm-4">
+                <input type="text" class="form-control" name="name" placeholder="e.g. Savings" required />
             </div>
         </div>
-        <div class="row mb-1">
+
+        <div class="mb-3 row">
             <label class="col-sm-2 col-form-label">Starting Balance</label>
-            <div class="col-sm-2">
-                <input type="number" class="form-control" name="balance" required />
-
+            <div class="col-sm-4">
+                <input type="number" class="form-control" name="balance" placeholder="e.g. 1000" required />
             </div>
         </div>
-        <div class="row mb-0">
-            <div class="col-sm-2">
-                <input type="submit" name="submit" id="submit" value="Submit" />
 
+        <div class="mb-3 row">
+            <div class="col-sm-4 offset-sm-2">
+                <input type="submit" name="submit" id="submit" class="btn btn-primary" value="Create Account" />
             </div>
         </div>
-       
-       
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-</form>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    </form>
+</div>
+

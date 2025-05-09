@@ -20,3 +20,11 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+body {
+    background-color: #e9ecef;
+}
+
+.card {
+    border-radius: 12px;
+}
