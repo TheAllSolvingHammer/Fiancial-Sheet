@@ -1,61 +1,68 @@
 ﻿@{
 	ViewData["Title"] = "Account List";
 }
+
 @section DashboardHeader {
-<li class="nav-item">
-	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Accounts">Account List</a>
-</li>
-<li class="nav-item">
-	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="AddAccount">Add Account</a>
-</li>
-<li class="nav-item">
-	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
-</li>
-<li class="nav-item">
-	<a class="nav-link text bg-red" asp-controller="Dashboard" asp-action="Logout">Logout</a>
-</li>
+	<li class="nav-item">
+		<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Accounts">Account List</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="AddAccount">Add Account</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link text-danger fw-bold" asp-controller="Dashboard" asp-action="Logout">Logout</a>
+	</li>
 }
+
 @if (TempData["SuccessMessage"] != null)
 {
-	<div class="alert alert-success">
+	<div class="alert alert-success mt-3">
 		@TempData["SuccessMessage"]
 	</div>
 }
+
 @model List<ProektTSPGlaven.Models.Database.Account>
-<h2> Your accounts</h2>
-<a class="btn btn-primary btn-sm" asp-controller="Dashboard" asp-action="AddAccount">New Account</a>
-<table class="table">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Name</th>
-			<th>Balance</th>
-			<th>Created at</th>
-			<th>Transaction Actions</th>
-			<th>Statistics</th>
-		</tr>
-	</thead>
-	<tbody>
-		@using ProektTSPGlaven.Models.Database;
-		@foreach (Account account in Model)
-		{
+
+<div class="container mt-4">
+	<div class="d-flex justify-content-between align-items-center mb-3">
+		<h2>Your Accounts</h2>
+		<a class="btn btn-primary" asp-controller="Dashboard" asp-action="AddAccount">+ New Account</a>
+	</div>
+
+	<table class="table table-striped table-hover align-middle shadow-sm">
+		<thead class="table-dark">
 			<tr>
-				<td>@account.accountID</td>
-				<td>@account.name</td>
-				<td>@account.balance</td>
-				<td>@account.createdAt</td>
-				<td>
-					<a asp-controller="Transaction" asp-action="Create" asp-route-accountId="@account.accountID" class="btn btn-sm btn-success">New</a>
-					<a asp-controller="Transaction" asp-action="History" asp-route-accountId="@account.accountID" class="btn btn-sm btn-info">History</a>
-					<form asp-controller="Account" asp-action="Delete" asp-route-accountId="@account.accountID" method="post" style="display:inline;">
-						<button type="submit" class="btn btn-sm btn-danger">Delete</button>
-					</form>
-				</td>
-				<td>
-					<a asp-controller="Transaction" asp-action="BalanceHistory" asp-route-accountId="@account.accountID" class="btn btn-sm btn-primary">Flow</a>
-				</td>
+				<th scope="col">ID</th>
+				<th scope="col">Name</th>
+				<th scope="col">Balance</th>
+				<th scope="col">Created</th>
+				<th scope="col">Transactions</th>
+				<th scope="col">Statistics</th>
 			</tr>
-		}
-		
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@foreach (var account in Model)
+			{
+				<tr>
+					<td>@account.accountID</td>
+					<td>@account.name</td>
+					<td>@account.balance.ToString("C")</td>
+					<td>@account.createdAt.ToString("yyyy-MM-dd")</td>
+					<td>
+						<a asp-controller="Transaction" asp-action="Create" asp-route-accountId="@account.accountID" class="btn btn-sm btn-success me-1">New</a>
+						<a asp-controller="Transaction" asp-action="History" asp-route-accountId="@account.accountID" class="btn btn-sm btn-outline-primary me-1">History</a>
+						<form asp-controller="Account" asp-action="Delete" asp-route-accountId="@account.accountID" method="post" class="d-inline">
+							<button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this account?');">Delete</button>
+						</form>
+					</td>
+					<td>
+						<a asp-controller="Transaction" asp-action="BalanceHistory" asp-route-accountId="@account.accountID" class="btn btn-sm btn-warning">Flow</a>
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

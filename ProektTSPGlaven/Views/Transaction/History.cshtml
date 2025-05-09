@@ -1,57 +1,62 @@
 ﻿@{
-	ViewData["Title"] = "Account List";
+	ViewData["Title"] = "Transaction List";
 }
 @section DashboardHeader {
-<li class="nav-item">
-	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Accounts">Account List</a>
-</li>
-<li class="nav-item">
-	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="AddAccount">Add Account</a>
-</li>
-<li class="nav-item">
-	<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
-</li>
-<li class="nav-item">
-	<a class="nav-link text bg-dark" asp-controller="Dashboard" asp-action="Logout">Logout</a>
-</li>
+	<li class="nav-item">
+		<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Accounts">Account List</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="AddAccount">Add Account</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link text-danger fw-bold" asp-controller="Dashboard" asp-action="Logout">Logout</a>
+	</li>
 }
-@if (TempData["SuccessMessage"] != null)
-{
-	<div class="alert alert-success">
-		@TempData["SuccessMessage"]
-	</div>
-}
-@model List<ProektTSPGlaven.Models.Database.TransactionEntity>
-<h2> Your accounts</h2>
 
-<a class="btn btn-primary btn-sm" method="post" asp-controller="Transaction" asp-action="Create" asp-route-accountId="@ViewBag.AccountId">New transaction</a>
-<table class="table">
-	<thead>
-		<tr>
-			<th>ID</th>
-			<th>Type</th>
-			<th>Amount</th>
-			<th>Date</th>
-			<th>Category</th>
-			<th>Description</th>
-		</tr>
-	</thead>
-	<tbody>
-		@using ProektTSPGlaven.Models.Database;
-		@foreach (TransactionEntity transaction in Model)
-		{
-			var rowClass = transaction.type == TransactionType.Income ? "table-success" : "table-danger";
-			<tr
-				class="@rowClass"
-			>
-				<td>@transaction.transactionID</td>
-				<td>@transaction.type.ToString()</td>
-				<td>@transaction.amount</td>
-				<td>@transaction.createdAt</td>
-				<td>@transaction.category</td>
-				<td>@transaction.description</td>
+<div class="container mt-4">
+	<h2 class="mb-3">📄 Transaction History</h2>
+
+	@if (TempData["SuccessMessage"] != null)
+	{
+		<div class="alert alert-success">
+			@TempData["SuccessMessage"]
+		</div>
+	}
+
+	<div class="mb-3">
+		<a class="btn btn-primary btn-sm" asp-controller="Transaction" asp-action="Create" asp-route-accountId="@ViewBag.AccountId">
+			➕ New Transaction
+		</a>
+	</div>
+
+	<table class="table table-bordered table-hover">
+		<thead class="table-light">
+			<tr>
+				<th>ID</th>
+				<th>Type</th>
+				<th>Amount</th>
+				<th>Date</th>
+				<th>Category</th>
+				<th>Description</th>
 			</tr>
-		}
-		
-	</tbody>
-</table>
+		</thead>
+		<tbody>
+			@using ProektTSPGlaven.Models.Database;
+			@foreach (TransactionEntity transaction in Model)
+			{
+				var rowClass = transaction.type == TransactionType.Income ? "table-success" : "table-danger";
+				<tr class="@rowClass">
+					<td>@transaction.transactionID</td>
+					<td>@transaction.type</td>
+					<td>@transaction.amount</td>
+					<td>@transaction.createdAt.ToString("yyyy-MM-dd HH:mm")</td>
+					<td>@transaction.category</td>
+					<td>@transaction.description</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>

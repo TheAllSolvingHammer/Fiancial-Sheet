@@ -12,9 +12,44 @@
         <a class="nav-link text-dark" asp-controller="Dashboard" asp-action="Stats">Personal Statistics</a>
     </li>
     <li class="nav-item">
-        <a class="nav-link text bg-red" asp-controller="Dashboard" asp-action="Logout">Logout</a>
+        <a class="nav-link text-danger fw-bold" asp-controller="Dashboard" asp-action="Logout">Logout</a>
     </li>
 }
-<div class="container">
-    <h1>Welcome to Your Dashboard</h1>
+
+<div class="container mt-4">
+    <div class="text-center mb-4">
+        <h1 class="display-5">Welcome to Your Dashboard</h1>
+        <p class="text-muted">Manage your accounts, view statistics, and stay on top of your personal finances.</p>
+    </div>
+
+    <div class="row text-center">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">💼 Accounts</h5>
+                    <p class="card-text">View and manage your financial accounts.</p>
+                    <a class="btn btn-outline-primary" asp-controller="Dashboard" asp-action="Accounts">Go to Accounts</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">➕ Add Account</h5>
+                    <p class="card-text">Create a new personal or business account.</p>
+                    <a class="btn btn-outline-success" asp-controller="Dashboard" asp-action="AddAccount">Add New</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">📊 Statistics</h5>
+                    <p class="card-text">Track your income, expenses, and trends.</p>
+                    <a class="btn btn-outline-info" asp-controller="Dashboard" asp-action="Stats">View Stats</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
